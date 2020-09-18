@@ -9,7 +9,8 @@ import torch
 import torch.optim as optim
 import torch.utils.data
 
-from model import LSTMClassifier
+from model_new import LSTMClassifierNew
+
 
 def model_fn(model_dir):
     """Load the PyTorch model from the `model_dir` directory."""
@@ -25,7 +26,8 @@ def model_fn(model_dir):
 
     # Determine the device and construct the model.
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = LSTMClassifier(model_info['embedding_dim'], model_info['hidden_dim'], model_info['vocab_size'])
+    model = LSTMClassifierNew(model_info['embedding_dim'], model_info['hidden_dim'], \
+                              model_info['vocab_size'], model_info['layers'], model_info['dropout'])
 
     # Load the stored model parameters.
     model_path = os.path.join(model_dir, 'model.pth')
@@ -116,6 +118,11 @@ if __name__ == '__main__':
                         help='size of the hidden dimension (default: 100)')
     parser.add_argument('--vocab_size', type=int, default=5000, metavar='N',
                         help='size of the vocabulary (default: 5000)')
+    parser.add_argument('--layers', type=int, default=1, metavar='N',
+                        help='LSTM layers (default: 1)'),
+    parser.add_argument('--dropout', type=float, default=0.0, metavar='N',
+                        help='dropout probability (default: 0.0)'),
+    
 
     # SageMaker Parameters
     parser.add_argument('--hosts', type=list, default=json.loads(os.environ['SM_HOSTS']))
@@ -135,13 +142,17 @@ if __name__ == '__main__':
     train_loader = _get_train_data_loader(args.batch_size, args.data_dir)
 
     # Build the model.
-    model = LSTMClassifier(args.embedding_dim, args.hidden_dim, args.vocab_size).to(device)
+    model = LSTMClassifierNew(args.embedding_dim, args.hidden_dim,\
+                              args.vocab_size, args.layers, args.dropout).to(device)
 
     with open(os.path.join(args.data_dir, "word_dict.pkl"), "rb") as f:
         model.word_dict = pickle.load(f)
 
-    print("Model loaded with embedding_dim {}, hidden_dim {}, vocab_size {}.".format(
-        args.embedding_dim, args.hidden_dim, args.vocab_size
+    print("Model loaded with embedding_dim {}, hidden_dim {},\
+          vocab_size {}, layers {}. dropout {}".format(args.embedding_dim,\
+                                                       args.hidden_dim,\
+                                                       args.vocab_size,\
+                                                       args.layers, args.dropout
     ))
 
     # Train the model.
@@ -157,6 +168,9 @@ if __name__ == '__main__':
             'embedding_dim': args.embedding_dim,
             'hidden_dim': args.hidden_dim,
             'vocab_size': args.vocab_size,
+            'layers': args.layers,
+            'dropout': args.dropout,
+            
         }
         torch.save(model_info, f)
 
