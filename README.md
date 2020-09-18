@@ -1,5 +1,21 @@
-# SageMaker Deployment Project
+# imbd-sentiment-analysis
 
-The notebook and Python files provided here, once completed, result in a simple web app which interacts with a deployed recurrent neural network performing sentiment analysis on movie reviews. This project assumes some familiarity with SageMaker, the mini-project, Sentiment Analysis using XGBoost, should provide enough background.
+This is my SageMaker Deployment Project submission.
+I'll try to meet all rubric items and also make at least an attempt to improve model performance.
+Refer to https://github.com/udacity/sagemaker-deployment/tree/master/README.md for more information
 
-Please see the [README](https://github.com/udacity/sagemaker-deployment/tree/master/README.md) in the root directory for instructions on setting up a SageMaker notebook and downloading the project files (as well as the other notebooks).
+# Files
+
+NegativeReviewExample.png\
+PositiveReviewExample.png\
+SageMaker Project.ipynb\
+Web App Diagram.svg\
+serve/model.py\
+serve/predict.py\
+serve/requirements.txt\
+train/model.py\
+train/model_new.py\
+train/train.py\
+train/train_new.py\
+train/requirements.txt\
+website/index.html
