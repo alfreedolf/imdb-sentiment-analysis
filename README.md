@@ -1,8 +1,15 @@
 # imbd-sentiment-analysis
 
-This is my SageMaker Deployment Project submission.
-I'll try to meet all rubric items and also make at least an attempt to improve model performance.
-Refer to https://github.com/udacity/sagemaker-deployment/tree/master/README.md for more information
+This is a sentiment analysis model trained on IMDB movies textual reviews.
+The resulting model will take as input a review from a simple web form and give a positive or negative output response.
+
+The project is based on AWS SageMaker and uses:
+* PyTorch to model a Deep Neural Network to predict sentiment from a review;
+* An AWS Lambda server to execute on demand a code snippet that will provide data to the model endpoint; **
+* AWS API Gateway to gather data from a web page through a restful API
+* A simple web page to input data 
+Two models were designed in the project, the second one is intended to improve initial performance.
+The items above marked with ** are not contained into the project repository.
 
 # Files
 
