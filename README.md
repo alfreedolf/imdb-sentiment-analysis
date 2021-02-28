@@ -9,7 +9,8 @@ The project is based on the following components:
 * AWS API Gateway to gather data from a web page through a restful API **,
 * A simple web page to input data.
 Two models were designed in the project, the second one is intended to improve initial performance.
-The items above marked with ** are not described in detail or contained into the project repository.
+
+Description/implementation of above items marked with ** is not part of the project repository.
 
 # Files
 
@@ -17,6 +18,7 @@ NegativeReviewExample.png\
 PositiveReviewExample.png\
 SageMaker Project.ipynb\
 Web App Diagram.svg\
+sentiment_lambda_function.py\
 serve/model.py\
 serve/predict.py\
 serve/requirements.txt\
